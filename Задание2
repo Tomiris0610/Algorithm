@@ -1,0 +1,7 @@
+while True:
+    n = int(input("Введите число: "))
+    
+    if n > 100:
+        break
+
+print("Введено число больше 100:", n)
