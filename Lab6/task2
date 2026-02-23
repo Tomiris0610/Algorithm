@@ -1,0 +1,57 @@
+import random
+
+rows = int(input("Количество строк:"))
+cols = int(input("Количество столбцов:"))
+
+matrix = []
+
+# Формирование матрицы
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        row.append(random.randint(1, 20))
+    matrix.append(row)
+
+# Вывод матрицы
+print("\nMatrica:")
+for row in matrix:
+    for value in row:
+        print(f"{value:4}", end="")
+    print()
+
+# Сумма всех элементов и максимум
+total = 0
+maximum = matrix[0][0]
+
+for row in matrix:
+    for value in row:
+        total += value
+        if value > maximum:
+            maximum = value
+
+print("\nSumma vse elementov:", total)
+print("Maksimalni element:", maximum)
+
+# 1. Сумма по строкам
+
+row_sums = []
+
+print("\nSummi po strokam")
+for i in range(rows):
+    row_sum = sum(matrix[i])
+    row_sums.append(row_sum)
+    print(f"Stroka {i}: {row_sum}")
+
+# 2. Сумма по столбцам
+
+print("\nSummi po stolbcam:")
+for j in range(cols):
+    col_sum = 0
+    for i in range(rows):
+        col_sum += matrix[i][j]
+    print(f"Stolbec {j}: {col_sum}")
+
+# 3. Строка с максимальной суммой
+
+max_row_index = row_sums.index(max(row_sums))
+print("\nStroka s maksimalnoi summoi:", max_row_index)
