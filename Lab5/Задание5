@@ -1,0 +1,16 @@
+if n < 2:
+    print("Невозможно определить второй по величине элемент (массив меньше 2 элементов).")
+else:
+    first = second = float('-inf')
+
+    for i in range(n):
+        if arr[i] > first:
+            second = first
+            first = arr[i]
+        elif arr[i] > second and arr[i] != first:
+            second = arr[i]
+
+    if second == float('-inf'):
+        print("В массиве нет второго по величине элемента (все элементы равны).")
+    else:
+        print("Второй по величине элемент:", second)

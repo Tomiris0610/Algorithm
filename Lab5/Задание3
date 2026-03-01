@@ -1,0 +1,16 @@
+positive_count = 0
+negative_count = 0
+even_count = 0
+
+for i in range(n):
+    if arr[i] > 0:
+        positive_count += 1
+    elif arr[i] < 0:
+        negative_count += 1
+
+    if arr[i] % 2 == 0:
+        even_count += 1
+
+print("Количество положительных чисел:", positive_count)
+print("Количество отрицательных чисел:", negative_count)
+print("Количество чётных чисел:", even_count)

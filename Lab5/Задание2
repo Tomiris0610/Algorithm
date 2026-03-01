@@ -1,0 +1,19 @@
+sum_elements = 0
+max_element = arr[0]
+min_element = arr[0]
+
+for i in range(n):
+    sum_elements += arr[i]
+
+    if arr[i] > max_element:
+        max_element = arr[i]
+
+    if arr[i] < min_element:
+        min_element = arr[i]
+
+average = sum_elements / n
+
+print("Сумма элементов:", sum_elements)
+print("Максимальный элемент:", max_element)
+print("Минимальный элемент:", min_element)
+print("Среднее арифметическое:", average)

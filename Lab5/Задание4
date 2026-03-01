@@ -1,0 +1,11 @@
+search_number = int(input("Введите число для поиска: "))
+found = False
+
+for i in range(n):
+    if arr[i] == search_number:
+        print(f"Число найдено. Индекс: {i}")
+        found = True
+        break
+
+if not found:
+    print("Число в массиве не найдено.")

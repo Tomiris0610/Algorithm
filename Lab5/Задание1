@@ -1,0 +1,15 @@
+# Корректный ввод n > 0
+while True:
+    n = int(input("Введите количество элементов (n > 0): "))
+    if n > 0:
+        break
+    else:
+        print("Ошибка! n должно быть больше 0.")
+
+# Ввод массива
+arr = []
+for i in range(n):
+    num = int(input(f"Введите элемент {i}: "))
+    arr.append(num)
+
+print("Введённый массив:", arr)
