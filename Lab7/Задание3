@@ -1,0 +1,4 @@
+def power(a, n=2):
+    return a ** n
+print(power(5))    #25
+print(power(2,3))  #8
