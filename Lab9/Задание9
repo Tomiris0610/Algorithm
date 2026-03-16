@@ -1,0 +1,38 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_to_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+        print()
+
+
+my_list = LinkedList()
+
+print("Введите 5 чисел:")
+for _ in range(5):
+    num = int(input())
+    my_list.add_to_end(num)
+
+print("Список:")
+my_list.print_list()

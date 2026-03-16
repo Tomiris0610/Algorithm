@@ -1,0 +1,22 @@
+class Node:
+    def __init__(self, data):
+        self.data = data      # данные узла
+        self.next = None      # ссылка на следующий узел
+
+
+# создаём узлы
+node1 = Node(10)
+node2 = Node(20)
+node3 = Node(30)
+
+# связываем узлы
+node1.next = node2
+node2.next = node3
+
+# выводим связанный список
+current = node1
+while current:
+    print(current.data, end=" -> ")
+    current = current.next
+
+print("None")

@@ -1,0 +1,44 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # добавление в конец
+    def add_to_end(self, data):
+        new_node = Node(data)
+
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.next:
+            current = current.next
+
+        current.next = new_node
+
+    # поиск элемента
+    def search(self, value):
+        current = self.head
+        while current:
+            if current.data == value:
+                return True
+            current = current.next
+        return False
+
+
+# использование
+my_list = LinkedList()
+
+my_list.add_to_end(10)
+my_list.add_to_end(20)
+my_list.add_to_end(30)
+my_list.add_to_end(40)
+
+print(my_list.search(20))  # True
+print(my_list.search(50))  # False
