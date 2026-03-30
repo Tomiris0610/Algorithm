@@ -1,0 +1,5 @@
+def get_neighbors(graph, node):
+    return graph.get(node, [])
+
+# пример
+print(get_neighbors(graph, 'A'))

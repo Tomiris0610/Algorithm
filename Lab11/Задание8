@@ -1,0 +1,18 @@
+def has_path(graph, start, end, visited=None):
+    if visited is None:
+        visited = set()
+
+    if start == end:
+        return True
+
+    visited.add(start)
+
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            if has_path(graph, neighbor, end, visited):
+                return True
+
+    return False
+
+# пример
+print(has_path(graph, 'A', 'E'))
