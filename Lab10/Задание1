@@ -1,0 +1,5 @@
+class Node:
+    def __init__(self, value):
+        self.value = value      # значение узла
+        self.left = None        # левый потомок
+        self.right = None       # правый потомок
