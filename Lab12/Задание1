@@ -1,0 +1,9 @@
+students = {
+    "Student1": 90,
+    "Student2": 85,
+    "Student3": 78,
+    "Student4": 92
+}
+
+for name, grade in students.items():
+    print(name, "-", grade)

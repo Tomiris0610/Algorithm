@@ -1,0 +1,9 @@
+text = "python is great and python is easy"
+words = text.lower().split()
+count = {}
+
+for word in words:
+    count[word] = count.get(word, 0) + 1
+
+max_word = max(count, key=count.get)
+print("Самое частое слово:", max_word)
