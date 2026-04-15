@@ -1,0 +1,92 @@
+import random
+import time
+import matplotlib.pyplot as plt
+
+# =========================================================
+# БЛОК 1: ЭМПИРИЧЕСКИЙ АНАЛИЗ (ЛИНЕЙНЫЙ vs БИНАРНЫЙ ПОИСК)
+# =========================================================
+
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
+
+
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1
+
+
+def measure_time(func, arr, target):
+    start = time.perf_counter()
+    func(arr, target)
+    end = time.perf_counter()
+    return end - start
+
+
+sizes = [100, 500, 1_000, 5_000, 10_000, 50_000, 100_000, 500_000, 1_000_000]
+
+linear_times = []
+binary_times = []
+
+for n in sizes:
+    arr = list(range(n))
+    target = random.randint(0, n - 1)
+
+    linear_times.append(measure_time(linear_search, arr, target))
+    binary_times.append(measure_time(binary_search, arr, target))
+
+# График
+plt.figure(figsize=(10, 6))
+plt.plot(sizes, linear_times, label="Linear Search")
+plt.plot(sizes, binary_times, label="Binary Search")
+
+plt.xlabel("n (размер массива)")
+plt.ylabel("время (сек)")
+plt.title("Линейный vs Бинарный поиск")
+plt.xscale("log")
+plt.yscale("log")
+plt.grid()
+plt.legend()
+plt.show()
+
+
+# =========================================================
+# БЛОК 2: ТЕОРЕТИЧЕСКИЙ АНАЛИЗ (ВЛОЖЕННЫЕ ЦИКЛЫ)
+# =========================================================
+
+print("\n================ ТЕОРЕТИЧЕСКИЙ АНАЛИЗ ================")
+
+print("""
+Код:
+
+for i in range(n):
+    for j in range(i):
+        операция
+""")
+
+print("Шаг 1: считаем количество операций")
+
+print("T(n) = 0 + 1 + 2 + ... + (n-1)")
+
+print("\nШаг 2: используем формулу суммы арифметической прогрессии:")
+print("T(n) = n(n-1)/2")
+
+print("\nШаг 3: раскрываем:")
+print("T(n) = (n^2 - n)/2")
+
+print("\nШаг 4: асимптотика:")
+print("Доминирует n^2, значит T(n) = O(n^2)")
+
+print("\nИТОГ: сложность алгоритма = O(n^2)")
