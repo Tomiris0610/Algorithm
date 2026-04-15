@@ -1,0 +1,72 @@
+import time
+import sys
+
+# =========================
+# БЛОК 3: ФИБОНАЧЧИ
+# Рекурсия vs Итерация
+# =========================
+
+# (увеличим лимит рекурсии, но всё равно "наивная" быстро падает)
+sys.setrecursionlimit(10000)
+
+# -------------------------
+# НАИВНАЯ РЕКУРСИЯ O(2^n)
+# -------------------------
+def fib_recursive(n):
+    if n <= 1:
+        return n
+    return fib_recursive(n - 1) + fib_recursive(n - 2)
+
+
+# -------------------------
+# ИТЕРАТИВНЫЙ ПОДХОД O(n)
+# -------------------------
+def fib_iterative(n):
+    if n <= 1:
+        return n
+
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+
+# -------------------------
+# ЗАМЕР ВРЕМЕНИ
+# -------------------------
+def measure_time(func, n):
+    start = time.perf_counter()
+    result = func(n)
+    end = time.perf_counter()
+    return end - start, result
+
+
+# -------------------------
+# ПОИСК "ЗАВИСАНИЯ"
+# -------------------------
+print("Сравнение Fibonacci (рекурсия vs итерация)\n")
+
+recursive_limit_found = False
+
+for n in range(1, 45):  # рекурсия ломается уже намного раньше 45
+    try:
+        t_rec, _ = measure_time(fib_recursive, n)
+    except RecursionError:
+        print(f"n={n}: РЕКУРСИЯ -> RecursionError (переполнение стека)")
+        recursive_limit_found = True
+        break
+
+    t_it, _ = measure_time(fib_iterative, n)
+
+    print(f"n={n:2d} | rec={t_rec:.6f}s | iter={t_it:.6f}s")
+
+    # если рекурсия стала слишком медленной — фиксируем "зависание"
+    if t_rec > 1.0 and not recursive_limit_found:
+        print(f"\n⚠️ Рекурсия стала слишком медленной примерно на n={n}")
+        recursive_limit_found = True
+
+
+print("\nИТОГ:")
+print("- Рекурсия имеет экспоненциальную сложность O(2^n)")
+print("- Итерация — линейную O(n)")
+print("- На практике рекурсия начинает 'зависать' уже примерно с n ≈ 35–40")
