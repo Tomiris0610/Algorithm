@@ -1,0 +1,82 @@
+# ==========================================
+# БЛОК 4: DFS (РЕКУРСИЯ vs ЯВНЫЙ СТЕК)
+# СРАВНЕНИЕ ПО ПАМЯТИ (SPACE COMPLEXITY)
+# ==========================================
+
+import sys
+from collections import defaultdict, deque
+import tracemalloc
+
+sys.setrecursionlimit(10**7)
+
+# -------------------------
+# ГРАФ (дерево/граф)
+# -------------------------
+graph = defaultdict(list)
+
+# создаём "глубокое" дерево, чтобы хорошо было видно разницу
+n = 10000  # можно менять
+
+for i in range(1, n):
+    graph[i - 1].append(i)
+
+# -------------------------
+# DFS РЕКУРСИЯ
+# -------------------------
+def dfs_recursive(v, visited):
+    visited.add(v)
+    for to in graph[v]:
+        if to not in visited:
+            dfs_recursive(to, visited)
+
+
+# -------------------------
+# DFS ЧЕРЕЗ ЯВНЫЙ СТЕК
+# -------------------------
+def dfs_stack(start):
+    visited = set()
+    stack = [start]
+
+    while stack:
+        v = stack.pop()
+        if v in visited:
+            continue
+
+        visited.add(v)
+
+        for to in reversed(graph[v]):
+            if to not in visited:
+                stack.append(to)
+
+
+# -------------------------
+# ФУНКЦИЯ ЗАМЕРА ПАМЯТИ
+# -------------------------
+def run_and_measure(func, *args):
+    tracemalloc.start()
+
+    func(*args)
+
+    current, peak = tracemalloc.get_traced_memory()
+    tracemalloc.stop()
+
+    return current, peak
+
+
+# -------------------------
+# ЗАПУСК ЭКСПЕРИМЕНТА
+# -------------------------
+print("DFS Recursion vs Stack (Memory Comparison)\n")
+
+visited = set()
+_, rec_peak = run_and_measure(dfs_recursive, 0, visited)
+
+_, stack_peak = run_and_measure(dfs_stack, 0)
+
+print(f"Рекурсивный DFS peak memory: {rec_peak / 1024:.2f} KB")
+print(f"DFS со стеком peak memory:    {stack_peak / 1024:.2f} KB")
+
+print("\nИТОГ:")
+print("- Рекурсия использует память стека вызовов (O(depth))")
+print("- Явный стек использует контролируемую структуру данных")
+print("- Итеративный DFS обычно безопаснее для больших графов")
